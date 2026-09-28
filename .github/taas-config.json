@@ -1,15 +1,17 @@
 {
-  "board": "",
+  "board": "qcs6490-rb3gen2",
   "build": {
-    "url": "",
-    "storageType": "",
-    "storageLayout": "",
-    "productFlavor": "",
-    "binaryType": ""
+    "url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/36306682732-1/qcom-distro/rb3gen2-core-kit/qcom-multimedia-image-rb3gen2-core-kit.rootfs.qcomflash.tar.gz",
+    "storageType": "UFS",
+    "storageLayout": "Auto",
+    "productFlavor": "Auto",
+    "binaryType": "Auto",
+    "PathToContentXML": "qcom-multimedia-image-rb3gen2-core-kit"
+    
   },
   "testPlan": {
-    "name": "",
-    "framework": "",
-    "content": ""
+    "name": "test-taas",
+    "framework": "LAVA",
+    "content": "test-taas"
   }
 }
