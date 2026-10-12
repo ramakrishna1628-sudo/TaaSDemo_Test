@@ -327,7 +327,7 @@ jobs:
               fi
 
               # The <details> block contains a full HTML test-case table.
-              JOB_ID_CELL="<details><summary>${SUMMARY_LABEL} (${NAME})</summary><table><thead><tr><th>Test Case</th><th>Result</th><th>Started On</th><th>Completed On</th></tr></thead><tbody>${TEST_ROWS_HTML}</tbody></table></details>"
+              JOB_ID_CELL="<details><summary>${SUMMARY_LABEL}</summary><table><thead><tr><th>Test Case</th><th>Result</th><th>Started On</th><th>Completed On</th></tr></thead><tbody>${TEST_ROWS_HTML}</tbody></table></details>"
 
               echo "<tr><td>${BOARD}</td><td>${JOB_ID_CELL}</td><td>${STATE}</td><td>${RESULT}</td><td>${COMPLETED_ON}</td></tr>"
 
