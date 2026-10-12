@@ -1,15 +1,34 @@
-{
-  "board": "",
-  "build": {
-    "url": "",
-    "storageType": "",
-    "storageLayout": "",
-    "productFlavor": "",
-    "binaryType": ""
-  },
-  "testPlan": {
-    "name": "",
-    "framework": "",
-    "content": ""
-  }
-}
+[
+	{
+		"board": "SC8480XP",
+		"build": {
+			"url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/qcom-deb-images/38216978324-1/trixie-flash-emmc.tar.gz",
+			"storageType": "Spinor__nvme",
+			"storageLayout": "Auto",
+			"productFlavor": "default__qcom_server",
+			"binaryType": "Auto",
+			"pathToContentXML": "flash_glymur-crd_nvme\\spinor"
+		},
+		"testPlan": {
+			"name": "test-taas",
+			"framework": "LAVA",
+			"content": "test-taas"
+		}
+	},
+	{
+		"board": "QCS9075M",
+		"build": {
+			"url": "https://qli-prod-artifacts.qualcomm.com/qli-prd-lecore-gh-artifacts/qualcomm-linux/qcom-distro-images/38218444104-1/qcom-ubuntu-iot-resolute-desktop-canonical.images.tar.gz",
+			"storageType": "UFS",
+			"storageLayout": "Auto",
+			"productFlavor": "Auto",
+			"binaryType": "Auto",
+			"pathToContentXML": "qcom-ubuntu-iot-resolute-desktop-canonical.images\\iq-9075-evk\\ufs"
+		},
+		"testPlan": {
+			"name": "test-taas",
+			"framework": "LAVA",
+			"content": "test-taas"
+		}
+	}
+]
