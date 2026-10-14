@@ -1,34 +1,30 @@
 [
 	{
-		"board": "SC8480XP",
-		"build": {
-			"url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/qcom-deb-images/38216978324-1/trixie-flash-emmc.tar.gz",
-			"storageType": "Spinor__nvme",
-			"storageLayout": "Auto",
-			"productFlavor": "default__qcom_server",
-			"binaryType": "Auto",
-			"pathToContentXML": "flash_glymur-crd_nvme\\spinor\\"
-		},
-		"testPlan": {
-			"name": "test-taas",
-			"framework": "LAVA",
-			"content": "test-taas"
-		}
+	"board": "SC8480XP",
+	"build": {
+		"url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/38236601620-1/qcom-distro/glymur-crd/qcom-multimedia-image-glymur-crd.rootfs.qcomflash.tar.gz",
+		"storageType": "Spinor__nvme",
+		"storageLayout": "Auto",
+		"productFlavor": "default__qcom_server",
+		"binaryType": "Auto",
+		"pathToContentXML": "qcom-multimedia-image-glymur-crd\\spinor"taasjobre
 	},
-	{
-		"board": "QCS9075M",
-		"build": {
-			"url": "https://qli-prod-artifacts.qualcomm.com/qli-prd-lecore-gh-artifacts/qualcomm-linux/qcom-distro-images/38218444104-1/qcom-ubuntu-iot-resolute-desktop-canonical.images.tar.gz",
-			"storageType": "UFS",
-			"storageLayout": "Auto",
-			"productFlavor": "Auto",
-			"binaryType": "Auto",
-			"pathToContentXML": "qcom-ubuntu-iot-resolute-desktop-canonical.images\\iq-9075-evk\\ufs"
-		},
-		"testPlan": {
-			"name": "test-taas",
-			"framework": "LAVA",
-			"content": "test-taas"
+	"testPlan": {
+		"name": "test-taas",
+		"framework": "LAVA",
+		"content": "test-taas"
+	},
+	"config": {
+		"optional": {
+			"buildLoading": "OncePerPlaylist",
+			"loadMethod": "Automatic",
+			"preFirstBootConfiguration": {
+				"localFile": {
+					"name": "ConfigurationFile_Camera.json",
+					"content": "{\n  \"description\": \"Configuration to Login via Serial, set VendorDtbOverlays and reboot\",\n  \"attempts\": 1,\n  \"retryFromLastFailedGroup\": false,\n  \"groups\": [\n    {\n      \"name\": \"Serial Login and Configure\",\n      \"attempts\": 1,\n      \"steps\": [\n        {\n          \"step\": \"sleep\",\n          \"description\": \"Wait for device to boot\",\n          \"input\": [\n            {\n              \"sleepTimeInSec\": 120\n            }\n          ]\n        },\n        {\n          \"step\": \"writeToSerialPort\",\n          \"description\": \"Wake up console\",\n          \"input\": [\n            {\n              \"command\": \"\\n\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true,\n              \"raiseErrorOnFailure\": false\n            }\n          ]\n        },\n        {\n          \"step\": \"sleep\",\n          \"description\": \"Wait for login prompt\",\n          \"input\": [\n            {\n              \"sleepTimeInSec\": 5\n            }\n          ]\n        },\n        {\n          \"step\": \"writeToSerialPort\",\n          \"description\": \"Send Username\",\n          \"input\": [\n            {\n              \"command\": \"root\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            }\n          ]\n        },\n        {\n          \"step\": \"sleep\",\n          \"description\": \"Wait for password prompt\",\n          \"input\": [\n            {\n              \"sleepTimeInSec\": 2\n            }\n          ]\n        },\n        {\n          \"step\": \"writeToSerialPort\",\n          \"description\": \"Send Password\",\n          \"input\": [\n            {\n              \"command\": \"oelinux123\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            }\n          ]\n        },\n        {\n          \"step\": \"sleep\",\n          \"description\": \"Wait for shell\",\n          \"input\": [\n            {\n              \"sleepTimeInSec\": 5\n            }\n          ]\n        },\n        {\n          \"step\": \"writeToSerialPort\",\n          \"description\": \"Execute Configuration Commands\",\n          \"input\": [\n            {\n              \"command\": \"echo -n \\\"camx\\\" > /var/data\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            },\n            {\n              \"command\": \"efivar -n 882f8c2b-9646-435f-8de5-f208ff80c1bd-VendorDtbOverlays -w -f /var/data\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            },\n            {\n              \"command\": \"efivar -n 882f8c2b-9646-435f-8de5-f208ff80c1bd-VendorDtbOverlays -p\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            },\n            {\n              \"command\": \"sync\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            },\n            {\n              \"command\": \"nmcli dev wifi connect Hydra password K5x48Vz3\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            }\n          ]\n        },\n        {\n          \"step\": \"sleep\",\n          \"description\": \"Ensure sync completes\",\n          \"input\": [\n            {\n              \"sleepTimeInSec\": 5\n            }\n          ]\n        },\n        {\n          \"step\": \"writeToSerialPort\",\n          \"description\": \"check ip addr\",\n          \"input\": [\n            {\n              \"command\": \"ip addr\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            }\n          ]\n        },\n        {\n          \"step\": \"writeToSerialPort\",\n          \"description\": \"Reboot Device\",\n          \"input\": [\n            {\n              \"command\": \"reboot\",\n              \"portIndex\": 0,\n              \"appendNewLine\": true\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}"
+				}
+			}
 		}
 	}
+}
 ]
