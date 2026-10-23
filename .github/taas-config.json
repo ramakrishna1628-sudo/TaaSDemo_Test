@@ -1,15 +1,17 @@
-{
-  "board": "",
-  "build": {
-    "url": "",
-    "storageType": "",
-    "storageLayout": "",
-    "productFlavor": "",
-    "binaryType": ""
-  },
-  "testPlan": {
-    "name": "",
-    "framework": "",
-    "content": ""
-  }
-}
+[
+	{
+		"board": "SC8480XP",
+		"build": {
+			"url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/qcom-deb-images/38216978324-1/trixie-flash-emmc.tar.gz",
+			"storageType": "Spinor__nvme",
+			"storageLayout": "Auto",
+			"productFlavor": "default__qcom_server",
+			"binaryType": "Auto",
+			"pathToContentXML": "flash_glymur-crd_nvme\\spinor\\"
+		},
+		"testPlan": {
+			"name": "test-taas",
+			"framework": "LAVA",
+			"content": "test-taas"
+		}
+	}]
