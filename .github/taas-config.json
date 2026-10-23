@@ -1,15 +1,16 @@
 {
-  "board": "",
-  "build": {
-    "url": "",
-    "storageType": "",
-    "storageLayout": "",
-    "productFlavor": "",
-    "binaryType": ""
-  },
-  "testPlan": {
-    "name": "",
-    "framework": "",
-    "content": ""
-  }
-}
+		"board": "QCS9075M",
+		"build": {
+			"url": "https://qli-prod-artifacts.qualcomm.com/qli-prd-lecore-gh-artifacts/qualcomm-linux/qcom-distro-images/38218444104-1/qcom-ubuntu-iot-resolute-desktop-canonical.images.tar.gz",
+			"storageType": "UFS",
+			"storageLayout": "Auto",
+			"productFlavor": "Auto",
+			"binaryType": "Auto",
+			"pathToContentXML": "qcom-ubuntu-iot-resolute-desktop-canonical.images\\iq-9075-evk\\ufs"
+		},
+		"testPlan": {
+			"name": "test-taas",
+			"framework": "LAVA",
+			"content": "test-taas"
+		}
+	}
