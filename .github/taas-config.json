@@ -1,7 +1,7 @@
 [{
  "board": "SC8480XP",
  "build": {
-  "url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/38236601620-1/qcom-distro/glymur-crd/qcom-multimedia-image-glymur-crd.rootfs.qcomflash.tar.gz",
+  "url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/40611311098-1/qcom-distro/glymur-crd/qcom-multimedia-image-glymur-crd.rootfs.qcomflash.tar.gz",
   "storageType": "Spinor__nvme",
   "storageLayout": "Auto",
   "productFlavor": "default__qcom_server",
