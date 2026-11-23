@@ -29,7 +29,7 @@ permissions:
 
 env:
   # Base URL for all TaaS REST API calls (submit, query, abort, results).
-  TAAS_API_BASE_URL: https://tst.api.qualcomm.com/devicecloud/v2/taas
+  TAAS_API_BASE_URL: https://dev.api.qualcomm.com/devicecloud/v2/taas
   # Path to the repo-level TaaS config. Must be a JSON array of job config objects.
   TAAS_CONFIG_PATH: .github/taas-config.json
 
