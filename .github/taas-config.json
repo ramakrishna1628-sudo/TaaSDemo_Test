@@ -1,7 +1,11 @@
 {
 	"board": "QCS8275",
 	"build": {
-		"url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/42319727850-1//qcom-distro/shikra-evk/qcom-multimedia-image-shikra-evk.rootfs.qcomflash.tar.gz"
+		"url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/42319727850-1//qcom-distro/shikra-evk/qcom-multimedia-image-shikra-evk.rootfs.qcomflash.tar.gz",
+		"storageType": "Auto",
+		"storageLayout": "Auto",
+		"productFlavor": "Auto",
+		"binaryType": "Auto"
 	},
 	"testPlan": {
 		"name": "test-plan-qcs8275.yml",
