@@ -1,15 +1,13 @@
-{
-  "board": "",
-  "build": {
-    "url": "",
-    "storageType": "",
-    "storageLayout": "",
-    "productFlavor": "",
-    "binaryType": ""
-  },
-  "testPlan": {
-    "name": "",
-    "framework": "",
-    "content": ""
-  }
-}
+[
+	{
+		"board": "QCS8275",
+		"build": {
+			"url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/42319727850-1//qcom-distro/shikra-evk/qcom-multimedia-image-shikra-evk.rootfs.qcomflash.tar.gz"
+		},
+		"testPlan": {
+			"name": "test-plan-qcs8275.yml",
+			"framework": "LAVA",
+			"content": "timeouts:\n  job:\n    minutes: 65\n  connection:\n    minutes: 2\n  actions:\n    finalize:\n      seconds: 60\ncontext:\n  test_character_delay: 10\ndevice_type: shikra-iqs-evk\njob_name: meta-qcom-qcom-distro-42319727850-1-pre-merge-bt\npriority: 50\nvisibility: public\ntags:\n  - has-bt\nmetadata:\n  path: projects/meta-qcom/\n  build-url: 'https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/42319727850-1/'\n  pr-url: ''\n  pr-number: ''\n  gh-workflow-url: 'https://github.com/qualcomm-linux/meta-qcom/actions/runs/42319727850'\n  gh-workflow-run-id: '42319727850'\n  gh-workflow-run-attempt: '1'\nactions:\n  - deploy:\n      rootfs_image: qcom-multimedia-image-shikra-evk/rootfs.img\n      qcomflash:\n        headers:\n          QLIAuthorization: 05f004aa47c2fab36d481763c135433cd691f842df1bbd04f3343fd27b34420b\n        url: 'https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/42319727850-1//qcom-distro/shikra-evk/qcom-multimedia-image-shikra-evk.rootfs.qcomflash.tar.gz'\n        apply-overlay: true\n      timeout:\n        minutes: 40\n      to: qdl\n  - boot:\n      firehose_program: prog_firehose_ddr.elf\n      rawprogram: rawprogram0.xml\n      patch: patch0.xml\n      path: qcom-multimedia-image-shikra-evk\n      storage: emmc\n      debug: true\n      ramdump: true\n      ramdump_timeout: 1800\n      timeout:\n        minutes: 15\n      method: qdl\n  - boot:\n      auto_login:\n        login_prompt: 'login:'\n        username: root\n        password_prompt: Password\n        password: oelinux123\n      prompts:\n        - root@shikra-evk\n        - 'root@(.*):[/~]#'\n      timeout:\n        minutes: 15\n      method: minimal\n  - test:\n      timeout:\n        minutes: 10\n      definitions:\n        - from: url\n          name: BT_ON_OFF\n          path: Runner/suites/Connectivity/Bluetooth/BT_ON_OFF/BT_ON_OFF.yaml\n          repository: 'https://github.com/qualcomm-linux/qcom-linux-testkit/archive/a4362e21d50606141b4eb446c1d578323b2792d7.tar.gz'\n          strip-components: 1\n          expected:\n            - BT_ON_OFF\n        - from: url\n          name: BT_FW_KMD_Service\n          path: Runner/suites/Connectivity/Bluetooth/BT_FW_KMD_Service/BT_FW_KMD_Service.yaml\n          repository: 'https://github.com/qualcomm-linux/qcom-linux-testkit/archive/a4362e21d50606141b4eb446c1d578323b2792d7.tar.gz'\n          strip-components: 1\n          expected:\n            - BT_FW_KMD_Service\n        - from: url\n          name: BT_SCAN\n          path: Runner/suites/Connectivity/Bluetooth/BT_SCAN/BT_SCAN.yaml\n          repository: 'https://github.com/qualcomm-linux/qcom-linux-testkit/archive/a4362e21d50606141b4eb446c1d578323b2792d7.tar.gz'\n          strip-components: 1\n          expected:\n            - BT_SCAN"
+		}
+	}
+]
