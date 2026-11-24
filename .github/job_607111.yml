@@ -1,0 +1,213 @@
+timeouts:
+  job:
+    minutes: 80
+  connection:
+    minutes: 2
+  actions:
+    finalize:
+      seconds: 60
+context:
+  lava_test_results_dir: /home/lava-%s
+  test_character_delay: 10
+device_type: monaco-evk
+job_name: qcom-deb-images-debian-45330781091-1-pre-merge-basic
+priority: 50
+visibility: public
+metadata:
+  path: projects/qcom-deb-images/
+  build-url: 
+    https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/qcom-deb-images/45330781091-1/
+  pr-url: ''
+  pr-number: ''
+  gh-workflow-url: 
+    https://github.com/qualcomm-linux/qcom-deb-images/actions/runs/45330781091
+  gh-workflow-run-id: '45330781091'
+  gh-workflow-run-attempt: '1'
+  build-type: SCHEDULE
+  build-run-id: '45330781091'
+  source-repo: https://github.com/qualcomm-linux/qcom-deb-images
+  source-branch: main
+  source-sha: bb204401e624b868b41c405d47e45ae26259ed4f
+  distro: debian
+  suite: trixie
+  variant: console
+  kernel: linux-next
+  testplan: debian/pre-merge
+  testkit-ref: testkit-2026.09.27
+  lava-test-plans-ref: 1e0eb3f02721665e60a5c771387aa2e7a8bbc66a
+  gh-workflow-name: linux-next linux build
+  machine: monaco-evk
+actions:
+- deploy:
+    rootfs_image: disk-ufs.img2
+    qcomflash:
+      headers:
+        QLIAuthorization: 05f004aa47c2fab36d481763c135433cd691f842df1bbd04f3343fd27b34420b
+      url: 
+        https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/qcom-deb-images/45330781091-1/trixie-flash-ufs.tar.gz
+      apply-overlay: true
+    timeout:
+      minutes: 40
+    to: qdl
+- boot:
+    firehose_program: prog_firehose_ddr.elf
+    rawprogram: rawprogram0.xml
+    patch: patch0.xml
+    path: flash_monaco-evk_ufs/sail_nor
+    storage: spinor
+    debug: true
+    ramdump: true
+    ramdump_timeout: 1800
+    timeout:
+      minutes: 15
+    method: qdl
+- boot:
+    firehose_program: prog_firehose_ddr.elf
+    rawprogram: rawprogram0.xml rawprogram1.xml rawprogram2.xml rawprogram3.xml 
+      rawprogram4.xml rawprogram5.xml
+    patch: patch0.xml patch1.xml patch2.xml patch3.xml patch4.xml patch5.xml
+    path: flash_monaco-evk_ufs
+    storage: ufs
+    debug: true
+    ramdump: true
+    ramdump_timeout: 1800
+    timeout:
+      minutes: 15
+    method: qdl
+- command:
+    name: network_turn_on
+- boot:
+    auto_login:
+      login_prompt: 'login:'
+      username: debian
+      password_prompt: Password
+      password: debian
+      login_commands:
+      - debian
+      - new password
+      - new password
+      - sudo su
+    prompts:
+    - root@debian
+    - debian@debian
+    - Current password
+    - New password
+    - Retype new password
+    - root@(.*):[/~]#
+    timeout:
+      minutes: 30
+    method: minimal
+- test:
+    timeout:
+      minutes: 10
+    definitions:
+    # testkit-2026.09.27 resolved to 304e039c4a9311801acfda5612a0ee65664d8efa
+    - from: url
+      name: CPUFreq_Validation
+      path: 
+        Runner/suites/Kernel/Baseport/CPUFreq_Validation/CPUFreq_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - CPUFreq_Validation
+    - from: url
+      name: Interrupts
+      path: Runner/suites/Kernel/Baseport/Interrupts/Interrupts.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - Interrupts
+    - from: url
+      name: cdsp_remoteproc
+      path: Runner/suites/Kernel/Baseport/cdsp_remoteproc/cdsp_remoteproc.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - cdsp_remoteproc
+    - from: url
+      name: adsp_remoteproc
+      path: Runner/suites/Kernel/Baseport/adsp_remoteproc/adsp_remoteproc.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - adsp_remoteproc
+    - from: url
+      name: OpenCV
+      path: Runner/suites/Multimedia/OpenCV/OpenCV.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - OpenCV
+    - from: url
+      name: irq
+      path: Runner/suites/Kernel/Baseport/irq/irq.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - irq
+    - from: url
+      name: BT_ON_OFF
+      path: Runner/suites/Connectivity/Bluetooth/BT_ON_OFF/BT_ON_OFF.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - BT_ON_OFF
+    - from: url
+      name: Ethernet_Basic_Validation
+      path: 
+        Runner/suites/Connectivity/Ethernet/Ethernet_Basic_Validation/Ethernet_Basic_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - Ethernet_Basic_Validation
+    - from: url
+      name: DSP_AudioPD
+      path: Runner/suites/Multimedia/DSP_AudioPD/DSP_AudioPD.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - DSP_AudioPD
+    - from: url
+      name: EFI_Variable_Validation
+      path: 
+        Runner/suites/System/EFI_Variable_Validation/EFI_Variable_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - EFI_Variable_Validation
+    - from: url
+      name: Partition_PostBoot_Validation
+      path: 
+        Runner/suites/Kernel/Baseport/Storage/Partition_PostBoot_Validation/Partition_PostBoot_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - Partition_PostBoot_Validation
+    - from: url
+      name: Boot_Systemd_KPI_Loop
+      path: 
+        Runner/suites/Performance/Boot_Systemd_KPI_Loop/Boot_Systemd_KPI_Loop.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - Boot_Systemd_KPI_Loop
+    - from: url
+      name: fastrpc_test
+      path: Runner/suites/Multimedia/CDSP/fastrpc_test/fastrpc_test.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/304e039c4a9311801acfda5612a0ee65664d8efa.tar.gz
+      strip-components: 1
+      expected:
+      - fastrpc_test
