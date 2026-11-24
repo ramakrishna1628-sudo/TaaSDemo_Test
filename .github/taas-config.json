@@ -1,17 +1,17 @@
 [
-	{
-		"board": "",
-		"build": {
-			"url": "",
-			"storageType": "Auto",
-			"storageLayout": "Auto",
-			"productFlavor": "Auto",
-			"binaryType": "Auto"
-		},
-		"testPlan": {
-			"name": "",
-			"framework": "LAVA",
-			"content": ""
-		}
-	}
-]
+      {
+          "board": "CQ2390M",
+          "build": {
+              "url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/45094447788-1//qcom-distro/shikra-evk/qcom-multimedia-image-shikra-evk.rootfs.qcomflash.tar.gz",
+              "storageType": "Auto",
+              "storageLayout": "Auto",
+              "productFlavor": "Auto",
+              "binaryType": "Auto"
+          },
+          "testPlan": {
+              "name": "job_shikra-TDC0000359L8.yaml",
+              "framework": "LAVA",
+              "contentFile": ".github/job_shikra-TDC0000359L8.yaml"
+          }
+      }
+  ]
