@@ -1,15 +1,17 @@
-{
-  "board": "",
-  "build": {
-    "url": "",
-    "storageType": "",
-    "storageLayout": "",
-    "productFlavor": "",
-    "binaryType": ""
-  },
-  "testPlan": {
-    "name": "",
-    "framework": "",
-    "content": ""
-  }
-}
+[
+	{
+		"board": "",
+		"build": {
+			"url": "",
+			"storageType": "Auto",
+			"storageLayout": "Auto",
+			"productFlavor": "Auto",
+			"binaryType": "Auto"
+		},
+		"testPlan": {
+			"name": "",
+			"framework": "LAVA",
+			"content": ""
+		}
+	}
+]
