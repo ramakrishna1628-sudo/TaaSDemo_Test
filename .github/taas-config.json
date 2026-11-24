@@ -1,17 +1,17 @@
-[
-	{
-		"board": "",
-		"build": {
-			"url": "",
-			"storageType": "Auto",
-			"storageLayout": "Auto",
-			"productFlavor": "Auto",
-			"binaryType": "Auto"
-		},
-		"testPlan": {
-			"name": "",
-			"framework": "LAVA",
-			"content": ""
-		}
-	}
-]
+ [
+      {
+          "board": "QCS8275",
+          "build": {
+              "url": "https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/45307788004-1//qcom-distro_linux-qcom-next/iq-8275-evk/qcom-multimedia-image-iq-8275-evk.rootfs.qcomflash.tar.gz",
+              "storageType": "Auto",
+              "storageLayout": "Auto",
+              "productFlavor": "Auto",
+              "binaryType": "Auto"
+          },
+          "testPlan": {
+              "name": "job_60736.yml",
+              "framework": "LAVA",
+              "contentFile": ".github/job_60736.yml"
+          }
+      }
+  ]
