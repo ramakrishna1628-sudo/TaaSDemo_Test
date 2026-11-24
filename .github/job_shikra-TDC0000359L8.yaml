@@ -1,0 +1,212 @@
+timeouts:
+  job:
+    minutes: 65
+  connection:
+    minutes: 2
+  actions:
+    finalize:
+      seconds: 60
+  queue:
+    hours: 1
+context:
+  test_character_delay: 10
+device_type: shikra-iqs-evk
+job_name: meta-qcom-qcom-distro-45104323244-1-pre-merge-basic
+priority: 50
+visibility: public
+metadata:
+  path: projects/meta-qcom/
+  build-url: 
+    https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/45094447788-1/
+  pr-url: https://github.com/qualcomm-linux/meta-qcom/pull/3319
+  pr-number: '3319'
+  gh-workflow-url: 
+    https://github.com/qualcomm-linux/meta-qcom/actions/runs/45104323244
+  gh-workflow-run-id: '45104323244'
+  gh-workflow-run-attempt: '1'
+actions:
+- deploy:
+    rootfs_image: qcom-multimedia-image-shikra-evk/rootfs.img
+    qcomflash:
+      headers:
+        QLIAuthorization: 05f004aa47c2fab36d481763c135433cd691f842df1bbd04f3343fd27b34420b
+      url: 
+        https://qli-prod-artifacts.qualcomm.com/qcom-prd-gh-artifacts/qualcomm-linux/meta-qcom/45094447788-1//qcom-distro/shikra-evk/qcom-multimedia-image-shikra-evk.rootfs.qcomflash.tar.gz
+      apply-overlay: true
+    timeout:
+      minutes: 40
+    to: qdl
+- boot:
+    firehose_program: prog_firehose_ddr.elf
+    rawprogram: rawprogram0.xml
+    patch: patch0.xml
+    path: qcom-multimedia-image-shikra-evk
+    storage: emmc
+    debug: true
+    ramdump: true
+    ramdump_timeout: 1800
+    timeout:
+      minutes: 15
+    method: qdl
+- boot:
+    auto_login:
+      login_prompt: 'login:'
+      username: root
+      password_prompt: Password
+      password: oelinux123
+    prompts:
+    - root@shikra-evk
+    - root@(.*):[/~]#
+    timeout:
+      minutes: 15
+    method: minimal
+- test:
+    timeout:
+      minutes: 10
+    definitions:
+    # testkit-2026.11.01 resolved to e54d4ea2a01832e42c811b21653856416d57aae8
+    - from: url
+      name: hotplug
+      path: Runner/suites/Kernel/Baseport/hotplug/hotplug.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - hotplug
+    - from: url
+      name: CPUFreq_Validation
+      path: 
+        Runner/suites/Kernel/Baseport/CPUFreq_Validation/CPUFreq_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - CPUFreq_Validation
+    - from: url
+      name: Interrupts
+      path: Runner/suites/Kernel/Baseport/Interrupts/Interrupts.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Interrupts
+    - from: url
+      name: OpenCV
+      path: Runner/suites/Multimedia/OpenCV/OpenCV.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - OpenCV
+    - from: url
+      name: irq
+      path: Runner/suites/Kernel/Baseport/irq/irq.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - irq
+    - from: url
+      name: Ethernet_Basic_Validation
+      path: 
+        Runner/suites/Connectivity/Ethernet/Ethernet_Basic_Validation/Ethernet_Basic_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Ethernet_Basic_Validation
+    - from: url
+      name: Docker_Kernel_Config
+      path: Runner/suites/System/Docker_Kernel_Config/Docker_Kernel_Config.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Docker_Kernel_Config
+    - from: url
+      name: EFI_Variable_Validation
+      path: 
+        Runner/suites/System/EFI_Variable_Validation/EFI_Variable_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - EFI_Variable_Validation
+    - from: url
+      name: Kubernetes_Kernel_Config
+      path: 
+        Runner/suites/System/Kubernetes_Kernel_Config/Kubernetes_Kernel_Config.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Kubernetes_Kernel_Config
+    - from: url
+      name: Logging_Journalctl_Validation
+      path: 
+        Runner/suites/System/Logging/Logging_Journalctl_Validation/Logging_Journalctl_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Logging_Journalctl_Validation
+    - from: url
+      name: Partition_PostBoot_Validation
+      path: 
+        Runner/suites/Kernel/Baseport/Storage/Partition_PostBoot_Validation/Partition_PostBoot_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Partition_PostBoot_Validation
+    - from: url
+      name: Boot_Systemd_KPI_Loop
+      path: 
+        Runner/suites/Performance/Boot_Systemd_KPI_Loop/Boot_Systemd_KPI_Loop.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Boot_Systemd_KPI_Loop
+    - from: url
+      name: fastrpc_test
+      path: Runner/suites/Multimedia/CDSP/fastrpc_test/fastrpc_test.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - fastrpc_test
+    - from: url
+      name: DMA_BUF_Heap_Validation
+      path: 
+        Runner/suites/Kernel/Baseport/DMA_BUF_Heap_Validation/DMA_BUF_Heap_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - DMA_BUF_Heap_Validation
+    - from: url
+      name: RTC_Validation
+      path: Runner/suites/Kernel/Baseport/RTC_Validation/RTC_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - RTC_Validation
+    - from: url
+      name: TQFTP_Validation
+      path: Runner/suites/Kernel/Baseport/TQFTP_Validation/TQFTP_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - TQFTP_Validation
+    - from: url
+      name: Thermal_Validation
+      path: 
+        Runner/suites/Kernel/Baseport/Thermal_Validation/Thermal_Validation.yaml
+      repository: 
+        https://github.com/qualcomm-linux/qcom-linux-testkit/archive/e54d4ea2a01832e42c811b21653856416d57aae8.tar.gz
+      strip-components: 1
+      expected:
+      - Thermal_Validation
