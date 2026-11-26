@@ -1,9 +1,6 @@
 name: TaaS Check Run
 'on':
   workflow_dispatch: null
-  push:
-    branches:
-      - main
   pull_request:
     types:
       - opened
