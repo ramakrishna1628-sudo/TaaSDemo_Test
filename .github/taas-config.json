@@ -7,7 +7,7 @@
 		"testPlan": {
 			"name": "",
 			"framework": "LAVA",
-			"content": ""
+			"contentFile": ""
 		}
 	}
 ]
