@@ -1,12 +1,7 @@
 [
 	{
 		"board": "",
-		"build": {
-			"url": ""
-		},
 		"testPlan": {
-			"name": "",
-			"framework": "LAVA",
 			"contentFile": ""
 		}
 	}
