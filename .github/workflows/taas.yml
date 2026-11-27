@@ -9,7 +9,8 @@ name: TaaS Check Run
       - closed
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
+  issues: write
 env:
   TAAS_API_BASE_URL: 'https://dev.api.qualcomm.com/devicecloud/v2/taas'
   TAAS_CONFIG_PATH: .github/taas-config.json
@@ -179,25 +180,7 @@ jobs:
                   }'
               )"
 
-              RESPONSE="$(
-                curl --fail-with-body --silent --show-error --location \
-                  --request POST \
-                  "${TAAS_API_BASE_URL}/jobs" \
-                  --header "Authorization: ${QCOM_QDC_API_KEY}" \
-                  --header "X-QCOM-TokenType: apikey" \
-                  --header "X-QCOM-AppName: aihub" \
-                  --header "X-QCOM-TracingId: ${GITHUB_RUN_ID}-${INDEX}" \
-                  --header "X-QCOM-ClientType: github-actions" \
-                  --header "Content-Type: application/json" \
-                  --data "${REQUEST_BODY}"
-              )"
-
-              JOB_ID="$(printf '%s' "${RESPONSE}" | jq -r '.id // .jobId // empty')"
-              if [ -z "${JOB_ID}" ]; then
-                echo "ERROR: No job ID in response for entry ${INDEX} (${NAME})" >&2
-                printf '%s\n' "${RESPONSE}" >&2
-                exit 1
-              fi
+              
 
               # Persist {index, jobId, name} for the polling step.
               printf '%s' "${RESPONSE}" | jq -c \
@@ -227,7 +210,47 @@ jobs:
             echo "${FAILED} job submission(s) failed." >&2
             exit 1
           fi
-                                 
+          HTTP_CODE="$(
+                curl --silent --show-error --location \
+                  --output "${RUNNER_TEMP}/response-${INDEX}.json" \
+                  --write-out "%{http_code}" \
+                  --request POST \
+                  "${TAAS_API_BASE_URL}/jobs" \
+                  --header "Authorization: ${QCOM_QDC_API_KEY}" \
+                  --header "X-QCOM-TokenType: apikey" \
+                  --header "X-QCOM-AppName: aihub" \
+                  --header "X-QCOM-TracingId: ${GITHUB_RUN_ID}-${INDEX}" \
+                  --header "X-QCOM-ClientType: github-actions" \
+                  --header "Content-Type: application/json" \
+                  --data "${REQUEST_BODY}"
+              )"
+
+          RESPONSE="$(cat "${RUNNER_TEMP}/response-${INDEX}.json")"
+
+          if [[ "${HTTP_CODE}" != "200" && "${HTTP_CODE}" != "201" ]]; then
+            jq -n \
+              --arg errorMessage "$(jq -r '.errorMessage // "Unknown error"' "${RUNNER_TEMP}/response-${INDEX}.json")" \
+              '{ errorMessage: $errorMessage }' \
+              > "${RUNNER_TEMP}/taas-error-${INDEX}.json"
+          
+            echo "TaaS submission failed:"
+            cat "${RUNNER_TEMP}/response-${INDEX}.json"
+          
+            exit 1
+          fi
+
+          JOB_ID="$(printf '%s' "${RESPONSE}" | jq -r '.id // .jobId // empty')"
+          
+          if [ -z "${JOB_ID}" ]; then
+            jq -n \
+              --arg errorMessage "No job ID returned from API" \
+              '{ errorMessage: $errorMessage }' \
+              > "${RUNNER_TEMP}/taas-error-${INDEX}.json"
+          
+            echo "ERROR: No job ID in response for entry ${INDEX} (${NAME})" >&2
+            printf '%s\n' "${RESPONSE}" >&2
+            exit 1
+          fi                       
                                       
                                     
                                   
