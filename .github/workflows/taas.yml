@@ -557,3 +557,33 @@ jobs:
               --header "X-QCOM-ClientType: github-actions"
             echo "TaaS Job #${JOB_ID} aborted."
           done
+      - name: Comment on PR when TaaS submission fails
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = process.env.RUNNER_TEMP;
+
+            let body = '## ❌ TaaS Job Submission Failed\n\n';
+
+            const files = fs.readdirSync(path)
+              .filter(f => f.startsWith('taas-error-'));
+
+            if (files.length === 0) {
+              body += '- Unknown error occurred during TaaS submission.\n';
+            } else {
+              for (const file of files) {
+                const err = JSON.parse(
+                  fs.readFileSync(`${path}/${file}`, 'utf8')
+                );
+                body += `- ${err.errorMessage}\n`;
+              }
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
