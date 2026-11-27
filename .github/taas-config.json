@@ -1,13 +1,8 @@
 [
 	{
-		"board": "",
-		"build": {
-			"url": ""
-		},
+		"board": "CQ2390M",
 		"testPlan": {
-			"name": "",
-			"framework": "LAVA",
-			"contentFile": ""
+			"contentFile": ".github/job_shikra-TDC0000359L8.yaml"
 		}
 	}
 ]
