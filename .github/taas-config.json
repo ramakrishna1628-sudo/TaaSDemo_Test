@@ -1,8 +1,8 @@
 [
 	{
-		"board": "",
+		"board": "CQ2390M1",
 		"testPlan": {
-			"contentFile": ""
+			"contentFile": ".github/job_shikra-TDC0000359L8.yaml"
 		}
 	}
 ]
