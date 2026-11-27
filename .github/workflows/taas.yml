@@ -170,14 +170,16 @@ jobs:
               RESPONSE="$(cat "${RUNNER_TEMP}/response-${INDEX}.json")"
 
               if [[ "${HTTP_CODE}" != "200" && "${HTTP_CODE}" != "201" ]]; then
+                ERROR_MESSAGE="$(jq -r '.errorMessage // .message // "Unknown error"' "${RUNNER_TEMP}/response-${INDEX}.json")"
+              
                 jq -n \
-                  --arg errorMessage "$(jq -r '.errorMessage // "Unknown error"' "${RUNNER_TEMP}/response-${INDEX}.json")" \
+                  --arg errorMessage "${ERROR_MESSAGE}" \
                   '{ errorMessage: $errorMessage }' \
                   > "${RUNNER_TEMP}/taas-error-${INDEX}.json"
-
-                echo "TaaS submission failed:"
+              
+                echo "TaaS submission failed: ${ERROR_MESSAGE}"
                 cat "${RUNNER_TEMP}/response-${INDEX}.json"
-
+              
                 exit 1
               fi
 
